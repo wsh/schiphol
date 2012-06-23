@@ -92,7 +92,7 @@ class Schiphol
           end
           
           # Check response code was OK.
-          check_response_code(response.code)
+          check_response_code(response)
           
           # Open a file to write to.
           file = File.open("#{path}/#{fname}", 'w')
@@ -200,9 +200,9 @@ class Schiphol
   end
   
   # Check that response code is OK.
-  def self.check_response_code(code)
-    unless code == '200'
-      raise "Response code was not 200 , but #{code}."
+  def self.check_response_code(response)
+    unless response.class < Net::HTTPSuccess
+      raise "Response code was not successful, but #{response.code}."
     end
   end
   
